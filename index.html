@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scroll Video — Shaky Shaky</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="loader" class="loader" aria-live="polite">
+    <div class="loader-inner">
+      <div class="loader-ring"></div>
+      <p class="loader-text">Loading video…</p>
+      <div class="loader-bar"><div class="loader-bar-fill" id="loader-fill"></div></div>
+    </div>
+  </div>
+
+  <header class="hero">
+    <p class="hero-eyebrow">Scroll to explore</p>
+    <h1 class="hero-title">Shaky Shaky</h1>
+    <p class="hero-sub">Scroll down to play forward · Scroll up to rewind</p>
+    <div class="hero-scroll-hint" aria-hidden="true">
+      <span></span>
+    </div>
+  </header>
+
+  <section class="scroll-stage" id="scroll-stage" aria-label="Scroll-controlled video">
+    <div class="scroll-stage-inner">
+      <div class="video-pin">
+        <canvas id="video-canvas" aria-hidden="true"></canvas>
+        <video
+          id="scroll-video"
+          preload="auto"
+          playsinline
+          muted
+          aria-label="Scroll-controlled video"
+        ></video>
+
+        <div class="video-overlay">
+          <div class="overlay-block" data-parallax="0.3">
+            <span class="overlay-label">Frame</span>
+            <span class="overlay-value" id="frame-display">0</span>
+          </div>
+          <div class="overlay-block overlay-progress-wrap" data-parallax="0.15">
+            <div class="progress-track">
+              <div class="progress-fill" id="progress-fill"></div>
+            </div>
+            <span class="overlay-time" id="time-display">0:00</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="outro">
+    <h2>End of journey</h2>
+    <p>Scroll back up to rewind the story frame by frame.</p>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>
