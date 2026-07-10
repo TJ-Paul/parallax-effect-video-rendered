@@ -8,10 +8,22 @@
   const loader = document.getElementById("loader");
   const loaderFill = document.getElementById("loader-fill");
   const loaderText = loader.querySelector(".loader-text");
-  const frameDisplay = document.getElementById("frame-display");
-  const timeDisplay = document.getElementById("time-display");
-  const progressFill = document.getElementById("progress-fill");
-  const parallaxBlocks = document.querySelectorAll("[data-parallax]");
+
+  const detailsStage = document.getElementById("details-stage");
+  const dJoinUs = document.getElementById("d-joinus");
+  const dDate = document.getElementById("d-date");
+  const dTime = document.getElementById("d-time");
+  const dNames = document.getElementById("d-names");
+  const dAddress = document.getElementById("d-address");
+
+  // Portion of the single pinned stage's scroll range reserved for the
+  // text reveal. The reveal starts while the video is still playing (at
+  // REVEAL_START_FRACTION of the way through video playback) so the text
+  // begins appearing as the video is winding down, not after it stops.
+  const REVEAL_FRACTION = 0.35;
+  const REVEAL_START_FRACTION = 0.15;
+  let videoFraction = 1 - REVEAL_FRACTION;
+  let revealStartProgress = REVEAL_START_FRACTION * videoFraction;
 
   const VIDEO_SRC = "shakyshaky.mp4";
   const DEFAULT_FPS = 30;
@@ -95,18 +107,58 @@
     return Math.min(Math.max(scrolled / scrollable, 0), 1);
   }
 
+  function clamp01(x) {
+    return Math.min(Math.max(x, 0), 1);
+  }
+
+  // The pinned stage has one continuous scroll range. The first
+  // `videoFraction` of it drives the video frame-by-frame; the remaining
+  // tail drives the text reveal, so everything happens on top of the same
+  // pinned video layer instead of handing off to a new section.
+  function getVideoProgress(overallProgress) {
+    return clamp01(overallProgress / videoFraction);
+  }
+
+  function getRevealProgress(overallProgress) {
+    return clamp01((overallProgress - revealStartProgress) / (1 - revealStartProgress));
+  }
+
+  // ── Details reveal (bottom of the video overlay) ──
+  // Driven by the tail portion of the same stage-scroll progress, so it
+  // fades/slides in on top of the video and reverses smoothly on scroll-up.
+  function mapRange(p, a, b) {
+    return clamp01((p - a) / (b - a));
+  }
+
+  function easeOutCubic(t) {
+    return 1 - Math.pow(1 - t, 3);
+  }
+
+  function revealUp(el, t, fromX) {
+    const e = easeOutCubic(t);
+    const translateY = (1 - e) * 40;
+    const translateX = fromX ? (1 - e) * fromX : 0;
+    el.style.opacity = t;
+    el.style.transform = `translate(${translateX}px, ${translateY}px)`;
+  }
+
+  function revealFade(el, t) {
+    el.style.opacity = t;
+  }
+
+  function updateReveal(overallProgress) {
+    const p = getRevealProgress(overallProgress);
+
+    revealUp(dJoinUs, mapRange(p, 0, 0.16));
+    revealUp(dDate, mapRange(p, 0.14, 0.34), 44); // slides in from the right, settles left
+    revealUp(dTime, mapRange(p, 0.32, 0.52), -44); // slides in from the left, settles right
+    revealUp(dNames, mapRange(p, 0.5, 0.7));
+    revealFade(dAddress, mapRange(p, 0.68, 0.88));
+  }
+
   function updateUI(frameIndex) {
-    const progress = totalFrames > 1 ? frameIndex / (totalFrames - 1) : 0;
-    const time = frameToTime(frameIndex);
-
-    frameDisplay.textContent = String(frameIndex + 1);
-    timeDisplay.textContent = `${formatTime(time)} / ${formatTime(duration)}`;
-    progressFill.style.width = `${progress * 100}%`;
-
-    parallaxBlocks.forEach((el) => {
-      const factor = parseFloat(el.dataset.parallax) || 0;
-      el.style.transform = `translateY(${-(progress - 0.5) * factor * 80}px)`;
-    });
+    // Frame/time/progress overlay elements were removed from the markup;
+    // this hook is kept in case future UI wants to react to frame changes.
   }
 
   function requestFrame(frameIndex) {
@@ -157,7 +209,9 @@
 
   function onScrollFrame() {
     if (!isReady) return;
-    requestFrame(progressToFrame(getScrollProgress()));
+    const overallProgress = getScrollProgress();
+    requestFrame(progressToFrame(getVideoProgress(overallProgress)));
+    updateReveal(overallProgress);
     rafId = null;
   }
 
@@ -257,8 +311,9 @@
     fps = estimateFps();
     totalFrames = Math.max(Math.ceil(duration * fps), 1);
 
-    const scrollVh = Math.max(Math.round(totalFrames * 1.5), 400);
-    stage.style.setProperty("--stage-height", `${scrollVh}vh`);
+    const videoVh = Math.max(Math.round(totalFrames * 1.5), 400);
+    const totalVh = Math.round(videoVh / videoFraction);
+    stage.style.setProperty("--stage-height", `${totalVh}vh`);
 
     await waitForFirstFrameData();
     resizeCanvas();

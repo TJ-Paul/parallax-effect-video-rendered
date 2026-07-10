@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Scroll Video — Shaky Shaky</title>
+  <title>Bair &amp; Shimi — 08.08.2026</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -14,15 +14,6 @@
       <div class="loader-bar"><div class="loader-bar-fill" id="loader-fill"></div></div>
     </div>
   </div>
-
-  <header class="hero">
-    <p class="hero-eyebrow">Scroll to explore</p>
-    <h1 class="hero-title">Shaky Shaky</h1>
-    <p class="hero-sub">Scroll down to play forward · Scroll up to rewind</p>
-    <div class="hero-scroll-hint" aria-hidden="true">
-      <span></span>
-    </div>
-  </header>
 
   <section class="scroll-stage" id="scroll-stage" aria-label="Scroll-controlled video">
     <div class="scroll-stage-inner">
@@ -37,25 +28,40 @@
         ></video>
 
         <div class="video-overlay">
-          <div class="overlay-block" data-parallax="0.3">
-            <span class="overlay-label">Frame</span>
-            <span class="overlay-value" id="frame-display">0</span>
-          </div>
-          <div class="overlay-block overlay-progress-wrap" data-parallax="0.15">
-            <div class="progress-track">
-              <div class="progress-fill" id="progress-fill"></div>
+          <div class="hero-text">
+            <p class="hero-eyebrow">We're getting married</p>
+            <div class="hero-names">
+              <span class="name">Bair</span>
+              <span class="amp">&amp;</span>
+              <span class="name">Shimi</span>
             </div>
-            <span class="overlay-time" id="time-display">0:00</span>
+            <p class="hero-sub">08.08.2026 · 1 PM · Atlanta, GA</p>
+            <p class="hero-fullnames">Bair Srivastav &amp; Shimi Afsara</p>
+          </div>
+
+          <div class="details-content">
+            <p class="details-eyebrow" id="d-joinus">Join us</p>
+
+            <div class="details-row">
+              <div class="detail-item detail-date" id="d-date">
+                <span class="detail-label">Date</span>
+                <span class="detail-value">08.08.2026</span>
+              </div>
+              <div class="detail-item detail-time" id="d-time">
+                <span class="detail-label">Time</span>
+                <span class="detail-value">1:00 PM</span>
+              </div>
+            </div>
+
+            <div class="details-names" id="d-names">
+              <span class="name">1277 Carolyn Dr NE</span>
+            </div>
+
+            <p class="details-address" id="d-address">Atlanta, GA 30329</p>
           </div>
         </div>
       </div>
     </div>
-  </section>
-
-  <section class="outro">
-    <h2>End of journey</h2>
-    <p>Scroll back up to rewind the story.</p>
-    <p>Turjjo Paul</p>
   </section>
 
   <script src="script.js"></script>
