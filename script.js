@@ -44,10 +44,10 @@ function update() {
     const brideX = startOffset * (1 - progress);
     const brideY = startOffsetY * (1 - progress);
 
-groomHand.style.transform = `translateX(${groomX}vw) translate(160px, 195px)`;
+groomHand.style.transform = `translateX(${groomX}vw) translate(160px, 0px)`;
 // brideHand.style.transform = `translate(${brideX}vw, ${brideY}vh) translate(-160px, 350px)`;
-brideHand.style.transform = `translate(${brideX}vw, ${brideY}vh) translate(-200px, 400px) rotate(8deg)`;
-groomHandCut.style.transform = `translateX(${groomX}vw) translate(185px, 160px)`;
+brideHand.style.transform = `translate(${brideX}vw, ${brideY}vh) translate(-200px, 220px) rotate(8.5deg)`;
+groomHandCut.style.transform = `translateX(${groomX}vw) translate(185px, -35px)`;
   }
 
   // --- staged text reveal, spread across the FULL scroll budget ---

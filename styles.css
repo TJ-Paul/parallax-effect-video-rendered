@@ -72,7 +72,7 @@ body.locked {
 
 .names {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 3.2em;
+    font-size: 5.2em;
     font-weight: 500;
     letter-spacing: 2px;
     margin-top: 10px;
@@ -88,7 +88,7 @@ body.locked {
 
 .join-block {
     position: absolute;
-    right: 8%;
+    right: 25%;
     bottom: 90px;
     z-index: 20;
     text-align: center;
@@ -222,6 +222,10 @@ body.locked {
 
 #joinus, #dateDetail, #timeDetail, #namesText, #locationDetail {
     opacity: 0;
+}
+
+.join-block #locationDetail {
+    margin-top: 20px;  /* increase this number for more vertical gap */
 }
 
 /* ---------- SCROLL SECTION BELOW HERO ---------- */
