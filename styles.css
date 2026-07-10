@@ -1,373 +1,255 @@
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-}
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Cormorant+Garamond:wght@400;500;600&display=swap');
 
-:root {
-  --bg: #14100d;
-  --bg-deep: #0c0908;
-  --text: #3d2b1f;
-  --muted: rgba(61, 43, 31, 0.6);
-  --accent: #8a4a2a;
-  --accent-soft: #b97b4f;
-  --stage-height: 400vh;
-}
-
-html {
-  scroll-behavior: auto;
-  overscroll-behavior-y: none;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
 }
 
 body {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  background: var(--bg);
-  color: var(--text);
-  overflow-x: hidden;
-  overscroll-behavior-y: none;
-  -webkit-font-smoothing: antialiased;
+    background: #0e0e0e;
+    overflow-x: hidden;
 }
 
-/* ── Loader ── */
-.loader {
-  position: fixed;
-  inset: 0;
-  z-index: 100;
-  display: grid;
-  place-items: center;
-  background: var(--bg);
-  transition: opacity 0.6s ease, visibility 0.6s ease;
+body.locked {
+    overflow: hidden;
+    height: 100vh;
 }
 
-.loader.hidden {
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
+/* ---------- HERO / PARALLAX SECTION ---------- */
+
+.hero {
+    position: relative;
+    min-height: 100vh;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    overflow: hidden;
+    background: radial-gradient(circle at 50% 30%, #4a4a4a 0%, #2b2b2b 45%, #141414 100%);
 }
 
-.loader-inner {
-  text-align: center;
-  width: min(280px, 80vw);
+.bg-pattern {
+    position: absolute;
+    inset: 0;
+    opacity: 0.06;
+    background-image:
+        radial-gradient(circle at 20% 20%, transparent 0, transparent 40px, rgba(255,255,255,0.4) 41px, transparent 42px),
+        radial-gradient(circle at 80% 60%, transparent 0, transparent 40px, rgba(255,255,255,0.4) 41px, transparent 42px);
+    background-size: 300px 300px;
+    pointer-events: none;
 }
 
-.loader-ring {
-  width: 48px;
-  height: 48px;
-  margin: 0 auto 1.25rem;
-  border: 2px solid rgba(185, 123, 79, 0.25);
-  border-top-color: var(--accent-soft);
-  border-radius: 50%;
-  animation: spin 0.9s linear infinite;
+.bg-fade {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0) 25%, rgba(0,0,0,0) 75%, rgba(0,0,0,0.55) 100%);
+    pointer-events: none;
 }
 
-@keyframes spin {
-  to { transform: rotate(360deg); }
+/* ---------- TOP TEXT ---------- */
+
+.top-text {
+    position: relative;
+    z-index: 20;
+    text-align: center;
+    padding-top: 60px;
+    color: #fff;
+    transition: opacity 0.1s linear;
 }
 
-.loader-text {
-  font-size: 0.85rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: rgba(245, 240, 230, 0.6);
-  margin-bottom: 1rem;
+.eyebrow {
+    letter-spacing: 6px;
+    font-size: 0.8em;
+    font-weight: 500;
+    color: #d9a066;
+    margin-bottom: 14px;
 }
 
-.loader-bar {
-  height: 2px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 2px;
-  overflow: hidden;
+/* ---------- NAMES (moved to top) ---------- */
+
+.names {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3.2em;
+    font-weight: 500;
+    letter-spacing: 2px;
+    margin-top: 10px;
 }
 
-.loader-bar-fill {
-  height: 100%;
-  width: 0%;
-  background: var(--accent-soft);
-  transition: width 0.15s ease;
+.names .amp {
+    color: #d9a066;
+    font-style: italic;
+    margin: 0 20px;
 }
 
-/* ── Hero text (overlaid on video) ── */
+/* ---------- JOIN US / DATE / TIME (moved bottom-right) ---------- */
 
-/* ── Scroll stage ── */
-/* .scroll-stage is a plain tall spacer that exists only to create
-   scrollable distance; .video-pin is fixed to the viewport the whole
-   time, so there's no position:sticky involved anywhere (sticky + small
-   viewport units is where mobile browsers tend to disagree with each
-   other — fixed positioning is far more consistently supported). */
-.scroll-stage {
-  height: var(--stage-height);
-  position: relative;
+.join-block {
+    position: absolute;
+    right: 8%;
+    bottom: 90px;
+    z-index: 20;
+    text-align: center;
+    color: #fff;
 }
 
-.video-pin {
-  position: fixed;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  background: #000;
-  z-index: 1;
+.join-block .details-row {
+    display: flex;
+    gap: 60px;
+    margin-bottom: 0;
 }
 
-#scroll-video {
-  position: absolute;
-  width: 0;
-  height: 0;
-  opacity: 0;
-  pointer-events: none;
+.names .amp {
+    color: #d9a066;
+    font-style: italic;
+    margin: 0 20px;
 }
 
-#video-canvas {
-  display: block;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.datetime {
+    margin-top: 14px;
+    font-size: 1.1em;
+    font-weight: 400;
+    letter-spacing: 1px;
+    color: #f1f1f1;
 }
 
-.video-overlay {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  text-align: center;
-  padding: clamp(2.5rem, 6vw, 4.5rem) clamp(1.25rem, 4vw, 3rem) clamp(2rem, 5vw, 3.5rem);
-  background:
-    linear-gradient(to bottom, rgba(0, 0, 0, 0.72) 0%, rgba(0, 0, 0, 0.25) 45%, transparent 65%),
-    linear-gradient(to top, rgba(0, 0, 0, 0.78) 0%, rgba(0, 0, 0, 0.3) 40%, transparent 65%);
+.fullnames {
+    margin-top: 6px;
+    font-size: 0.85em;
+    font-weight: 300;
+    color: #bdbdbd;
+    letter-spacing: 1px;
 }
 
-.video-overlay * {
-  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.55);
+/* ---------- HANDS ---------- */
+
+.hands-stage {
+    position: relative;
+    z-index: 10;
+    width: min(90vw, 1300px);
+    aspect-ratio: 1587 / 680; /* matches source image ratio */
+    margin: 20px auto;
 }
 
-.hero-text {
-  color: var(--text);
+.hand {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    will-change: transform, opacity;
 }
 
-.hero-eyebrow {
-  font-size: 0.75rem;
-  letter-spacing: 0.25em;
-  text-transform: uppercase;
-  color: var(--accent-soft);
-  margin-bottom: 1.25rem;
-  opacity: 0.95;
+/* stacking order: cut hand on very top, then bride hand, then full groom hand at bottom */
+.groom-hand {
+    z-index: 1;
+    object-position: left center;
+    transform: translateX(-60vw);
 }
 
-.hero-sub {
-  font-size: 0.95rem;
-  color: rgba(255, 250, 242, 0.92);
-  max-width: 28ch;
-  margin: 1.25rem auto 0;
-  line-height: 1.6;
+.groom-hand-cut {
+    z-index: 3;
+    object-position: left center;
+    transform: translateX(-60vw);
+    opacity: 1;
 }
 
-.hero-fullnames {
-  font-size: 0.7rem;
-  letter-spacing: 0.08em;
-  color: rgba(255, 250, 242, 0.6);
-  margin-top: 0.6rem;
+.bride-hand {
+    z-index: 2;
+    object-position: right center;
+    transform: translate(60vw, -40vh);
 }
 
-/* ── (outro section removed — content now lives in the video overlay) ── */
+/* ---------- BOTTOM TEXT ---------- */
 
-/* ── Names on hero ── */
-.hero-names {
-  display: flex;
-  align-items: center;
-  gap: clamp(1rem, 4vw, 2.5rem);
-  margin-bottom: 1.25rem;
+.bottom-text {
+    position: relative;
+    z-index: 20;
+    text-align: center;
+    padding-bottom: 60px;
+    color: #fff;
 }
 
-.hero-names .name {
-  font-size: clamp(2.4rem, 8vw, 5.5rem);
-  font-weight: 300;
-  letter-spacing: -0.02em;
-  line-height: 1;
-  color: #f7f2ea;
-}
-
-.hero-names .amp {
-  font-size: clamp(1.5rem, 4vw, 2.5rem);
-  font-style: italic;
-  color: var(--accent-soft);
-  font-weight: 300;
-}
-
-/* ── Details content (bottom of video overlay, scroll-revealed) ── */
-.details-content {
-  width: min(760px, 92vw);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: clamp(1rem, 3vw, 1.75rem);
-  text-align: center;
-}
-
-.details-eyebrow {
-  font-size: 0.8rem;
-  font-weight: 600;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--accent-soft);
-  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.75), 0 1px 3px rgba(0, 0, 0, 0.1);
-  opacity: 0;
-  will-change: transform, opacity;
+.join-us {
+    letter-spacing: 6px;
+    font-size: 0.75em;
+    font-weight: 500;
+    color: #d9a066;
+    margin-bottom: 16px;
 }
 
 .details-row {
-  width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 1rem;
+    display: flex;
+    justify-content: center;
+    gap: 120px;
+    margin-bottom: 20px;
 }
 
-.detail-item {
-  display: flex;
-  flex-direction: column;
-  gap: 0.4rem;
-  min-width: 110px;
-  opacity: 0;
-  will-change: transform, opacity;
-}
-
-.detail-date {
-  align-items: flex-start;
-  text-align: left;
-}
-
-.detail-time {
-  align-items: flex-end;
-  text-align: right;
-}
-
-.detail-label {
-  font-size: 0.6rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: rgba(255, 250, 242, 0.7);
-}
-
-.detail-value {
-  font-size: clamp(1.1rem, 3vw, 1.6rem);
-  font-weight: 300;
-  color: #ffffff;
-}
-
-.details-names {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: clamp(0.6rem, 2.5vw, 1.25rem);
-  opacity: 0;
-  will-change: transform, opacity;
-}
-
-.details-names .name {
-  font-size: clamp(1.3rem, 3.5vw, 2rem);
-  font-weight: 300;
-  letter-spacing: -0.01em;
-  color: #ffffff;
-}
-
-.details-address {
-  color: rgba(255, 250, 242, 0.85);
-  font-size: 0.95rem;
-  letter-spacing: 0.04em;
-  line-height: 1.6;
-  opacity: 0;
-  will-change: opacity;
-}
-
-/* ── Mobile ── */
-@media (max-width: 640px) {
-  .video-overlay {
-    padding:
-      calc(env(safe-area-inset-top, 0px) + 1.75rem)
-      1.1rem
-      calc(env(safe-area-inset-bottom, 0px) + 1.5rem);
-  }
-
-  .hero-eyebrow {
-    font-size: 0.62rem;
-    letter-spacing: 0.18em;
-    margin-bottom: 0.85rem;
-  }
-
-  .hero-names {
-    gap: 0.6rem;
-    margin-bottom: 0.75rem;
-  }
-
-  .hero-names .name {
-    font-size: clamp(2rem, 11vw, 3rem);
-  }
-
-  .hero-names .amp {
-    font-size: clamp(1.1rem, 6vw, 1.6rem);
-  }
-
-  .hero-sub {
-    font-size: 0.8rem;
-    max-width: 24ch;
-  }
-
-  .hero-fullnames {
-    font-size: 0.62rem;
-  }
-
-  .details-content {
-    width: 100%;
-    gap: 1rem;
-  }
-
-  .details-eyebrow {
-    font-size: 0.68rem;
-    letter-spacing: 0.22em;
-  }
-
-  .details-row {
-    gap: 0.75rem;
-  }
-
-  .detail-item {
-    min-width: 0;
-    flex: 1;
-  }
-
-  .detail-label {
-    font-size: 0.55rem;
-  }
-
-  .detail-value {
-    font-size: clamp(0.95rem, 4.5vw, 1.25rem);
-  }
-
-  .details-names .name {
-    font-size: clamp(1rem, 4.5vw, 1.3rem);
-  }
-
-  .details-address {
-    font-size: 0.8rem;
-  }
-}
-
-/* Extra-narrow phones: give date/time their own line each so nothing
-   crowds together next to the henna hand in the frame. */
-@media (max-width: 380px) {
-  .details-row {
+.detail {
+    display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.9rem;
-  }
+}
 
-  .detail-date,
-  .detail-time {
-    align-items: center;
-    text-align: center;
-  }
+.detail .label {
+    font-size: 0.65em;
+    letter-spacing: 3px;
+    color: #a8a8a8;
+    margin-bottom: 4px;
+}
+
+.detail .value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6em;
+}
+
+.address-line {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.7em;
+}
+
+.address-sub {
+    margin-top: 4px;
+    font-size: 0.85em;
+    color: #bdbdbd;
+    letter-spacing: 1px;
+}
+
+/* ---------- STAGED TEXT REVEAL (JS-driven opacity/transform) ---------- */
+
+#joinus, #dateDetail, #timeDetail, #namesText, #locationDetail {
+    opacity: 0;
+}
+
+/* ---------- SCROLL SECTION BELOW HERO ---------- */
+
+.sec {
+    position: relative;
+    background: #003329;
+    padding: 100px 12%;
+}
+
+.sec h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.6em;
+    color: #fff;
+    margin-bottom: 16px;
+}
+
+.sec p {
+    font-size: 1em;
+    color: #d8d8d8;
+    font-weight: 300;
+    line-height: 1.7;
+    max-width: 700px;
+}
+
+/* ---------- RESPONSIVE ---------- */
+
+@media (max-width: 700px) {
+    .names { font-size: 3em; }
+    .details-row { gap: 60px; }
 }

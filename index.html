@@ -1,65 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bair &amp; Shimi — 08.08.2026</title>
-  <link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bair & Shimi | We're Getting Married</title>
+
+<link rel="stylesheet" href="styles.css">
+
 </head>
 <body>
-  <div id="loader" class="loader" aria-live="polite">
-    <div class="loader-inner">
-      <div class="loader-ring"></div>
-      <p class="loader-text">Loading video…</p>
-      <div class="loader-bar"><div class="loader-bar-fill" id="loader-fill"></div></div>
+
+  <section class="hero">
+
+    <div class="bg-pattern"></div>
+    <div class="bg-fade"></div>
+
+    <div class="top-text">
+      <p class="eyebrow">We're Getting Married</p>
+      <h1 class="names" id="namesText">Bair <span class="amp">&amp;</span> Shimi</h1>
     </div>
-  </div>
 
-  <section class="scroll-stage" id="scroll-stage" aria-label="Scroll-controlled video">
-    <div class="video-pin">
-      <canvas id="video-canvas" aria-hidden="true"></canvas>
-      <video
-        id="scroll-video"
-        preload="auto"
-        playsinline
-        muted
-        aria-label="Scroll-controlled video"
-      ></video>
+    <div class="hands-stage">
+      <img id="groomhand" class="hand groom-hand" src="images/groomhand.png">
+      <img id="bridehand" class="hand bride-hand" src="images/bridehand.png">
+      <img id="groomhandcut" class="hand groom-hand-cut" src="images/groomhandcut.png">
+    </div>
 
-      <div class="video-overlay">
-        <div class="hero-text">
-          <p class="hero-eyebrow">We're getting married</p>
-          <div class="hero-names">
-            <span class="name">Bair</span>
-            <span class="amp">&amp;</span>
-            <span class="name">Shimi</span>
-          </div>
-          <p class="hero-sub">08.08.2026 · 1 PM · Atlanta, GA</p>
-          <p class="hero-fullnames">Bair Srivastav &amp; Shimi Afsara</p>
+    <div class="join-block" id="joinBlock">
+      <p class="join-us" id="joinus">Join Us</p>
+      <div class="details-row">
+        <div class="detail" id="dateDetail">
+          <span class="label">Date</span>
+          <span class="value">08.08.2026</span>
         </div>
-
-        <div class="details-content">
-          <p class="details-eyebrow" id="d-joinus">Join us</p>
-
-          <div class="details-row">
-            <div class="detail-item detail-date" id="d-date">
-              <span class="detail-label">Date</span>
-              <span class="detail-value">08.08.2026</span>
-            </div>
-            <div class="detail-item detail-time" id="d-time">
-              <span class="detail-label">Time</span>
-              <span class="detail-value">1:00 PM</span>
-            </div>
-          </div>
-
-          <div class="details-names" id="d-names">
-            <span class="name">1277 Carolyn Dr NE</span>
-          </div>
-
-          <p class="details-address" id="d-address">Atlanta, GA 30329</p>
+        <div class="detail" id="timeDetail">
+          <span class="label">Time</span>
+          <span class="value">1:00 PM</span>
         </div>
       </div>
     </div>
+
+    <div class="bottom-text">
+      <div id="locationDetail">
+        <p class="address-line">1277 Carolyn Dr NE</p>
+        <p class="address-sub">Atlanta, GA 30329</p>
+      </div>
+    </div>
+
   </section>
 
   <script src="script.js"></script>
