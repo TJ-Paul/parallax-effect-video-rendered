@@ -18,16 +18,30 @@
 
 html {
   scroll-behavior: auto;
-  overscroll-behavior-y: none;
+  height: 100%;
+  overflow: hidden;
 }
 
 body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   background: var(--bg);
   color: var(--text);
-  overflow-x: hidden;
-  overscroll-behavior-y: none;
+  height: 100%;
+  overflow: hidden;
   -webkit-font-smoothing: antialiased;
+}
+
+/* The actual scrolling container. Keeping overflow off html/body and
+   scrolling this element instead is what makes position:sticky reliable
+   on iOS Safari (an overflow-hidden ancestor above the real scroller can
+   silently break sticky there) and lets overscroll-behavior actually
+   suppress the rubber-band bounce at the top/bottom on WebKit. */
+#scroll-root {
+  height: 100%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-y: none;
 }
 
 /* ── Loader ── */

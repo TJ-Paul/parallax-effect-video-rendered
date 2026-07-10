@@ -4,6 +4,7 @@
   const video = document.getElementById("scroll-video");
   const canvas = document.getElementById("video-canvas");
   const ctx = canvas.getContext("2d", { alpha: false });
+  const scrollRoot = document.getElementById("scroll-root");
   const stage = document.getElementById("scroll-stage");
   const loader = document.getElementById("loader");
   const loaderFill = document.getElementById("loader-fill");
@@ -337,7 +338,7 @@
 
   video.addEventListener("seeked", onSeeked);
 
-  window.addEventListener("scroll", requestScrollUpdate, { passive: true });
+  scrollRoot.addEventListener("scroll", requestScrollUpdate, { passive: true });
   window.addEventListener("resize", () => {
     resizeCanvas();
     requestScrollUpdate();
