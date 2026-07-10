@@ -18,6 +18,7 @@
 
 html {
   scroll-behavior: auto;
+  overscroll-behavior-y: none;
 }
 
 body {
@@ -25,6 +26,7 @@ body {
   background: var(--bg);
   color: var(--text);
   overflow-x: hidden;
+  overscroll-behavior-y: none;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -211,7 +213,7 @@ body {
   letter-spacing: 0.3em;
   text-transform: uppercase;
   color: var(--accent-soft);
-  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.75), 0 1px 3px rgba(0, 0, 0, 0.01);
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.75), 0 1px 3px rgba(0, 0, 0, 0.1);
   opacity: 0;
   will-change: transform, opacity;
 }
@@ -279,4 +281,93 @@ body {
   line-height: 1.6;
   opacity: 0;
   will-change: opacity;
+}
+
+/* ── Mobile ── */
+@media (max-width: 640px) {
+  .video-overlay {
+    padding:
+      calc(env(safe-area-inset-top, 0px) + 1.75rem)
+      1.1rem
+      calc(env(safe-area-inset-bottom, 0px) + 1.5rem);
+  }
+
+  .hero-eyebrow {
+    font-size: 0.62rem;
+    letter-spacing: 0.18em;
+    margin-bottom: 0.85rem;
+  }
+
+  .hero-names {
+    gap: 0.6rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .hero-names .name {
+    font-size: clamp(2rem, 11vw, 3rem);
+  }
+
+  .hero-names .amp {
+    font-size: clamp(1.1rem, 6vw, 1.6rem);
+  }
+
+  .hero-sub {
+    font-size: 0.8rem;
+    max-width: 24ch;
+  }
+
+  .hero-fullnames {
+    font-size: 0.62rem;
+  }
+
+  .details-content {
+    width: 100%;
+    gap: 1rem;
+  }
+
+  .details-eyebrow {
+    font-size: 0.68rem;
+    letter-spacing: 0.22em;
+  }
+
+  .details-row {
+    gap: 0.75rem;
+  }
+
+  .detail-item {
+    min-width: 0;
+    flex: 1;
+  }
+
+  .detail-label {
+    font-size: 0.55rem;
+  }
+
+  .detail-value {
+    font-size: clamp(0.95rem, 4.5vw, 1.25rem);
+  }
+
+  .details-names .name {
+    font-size: clamp(1rem, 4.5vw, 1.3rem);
+  }
+
+  .details-address {
+    font-size: 0.8rem;
+  }
+}
+
+/* Extra-narrow phones: give date/time their own line each so nothing
+   crowds together next to the henna hand in the frame. */
+@media (max-width: 380px) {
+  .details-row {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.9rem;
+  }
+
+  .detail-date,
+  .detail-time {
+    align-items: center;
+    text-align: center;
+  }
 }
